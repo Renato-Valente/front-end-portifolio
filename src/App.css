@@ -6,6 +6,7 @@
 
 body {
     min-height: 100vh;
+    font-family: sans-serif;
 }
 
 .header-container {
@@ -81,5 +82,60 @@ body {
 
     .header-links {
         display: none;
+    }
+}
+
+
+
+/* ------------------------- */
+
+.about-container {
+    width: 100vw;
+    padding-top: 80px;
+    display: flex;
+}
+
+.left-side {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./assets/profile_background.jpg');
+    background-size: cover;
+}
+
+
+.left-side img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+.right-side {
+    width: 50%;
+    background-color: #333;
+    color: whitesmoke;
+    padding: 4rem;
+    text-align: center;
+}
+
+.right-side p {
+    margin: 2rem 0;
+}
+
+.right-side h2 {
+    font-size: 3rem;
+}
+
+@media (max-width: 800px) {
+    .about-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .left-side, .right-side {
+        width: 100%;
+    }
+
+    .left-side {
+        height: 400px;
     }
 }
