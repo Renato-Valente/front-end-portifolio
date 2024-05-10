@@ -5,7 +5,9 @@ import './App.css'
 import spider from './assets/spider.jpg'
 import links from './assets/links.svg'
 import dog from './assets/dog.jpg'
+import man from './assets/man.jpg'
 import { useState } from 'react'
+import Carousel from './components/Carousel'
 
 
 const Header = () => {
@@ -16,7 +18,7 @@ const Header = () => {
   return(
     <div className="header-container">
       <div className="header-image">
-        <img src={dog}  height="50px" width="50px"/>
+        <img src={man}  height="50px" width="50px"/>
       </div>
       <div className="header-links">
         <ul>
@@ -52,7 +54,7 @@ const AboutMe = () => {
     
     <div className="about-container">
       <div className="left-side">
-        <img src={dog} height={'50px'} width={'50px'} alt="profile image" />
+        <img src={man} height={'50px'} width={'50px'} alt="profile image" />
       </div>
       <div className="right-side">
         <h2>About Me</h2>
@@ -82,6 +84,7 @@ function App() {
     <>
       <Header />
       <AboutMe />
+      <Carousel />
     </>
   )
 

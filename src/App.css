@@ -12,13 +12,18 @@ body {
 .header-container {
     width: 100vw;
     max-height: 80px;
-    background-color: #333;
+    background-color: hsl(127, 100%, 82%);
     position: fixed;
-    color: whitesmoke;
+    color: hsl(252, 17%, 6%);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
 }
+
+/* .header-image {
+    background-color: black;
+    border-radius: 50%;
+} */
 
 .header-image img {
     border-radius: 50%;
@@ -44,9 +49,9 @@ body {
 }
 
 .header-dropdown ul {
-    background-color: pink;
+    background-color: hsl(247, 11%, 15%);
     border: 1px solid #111;
-    color: black;
+    color: whitesmoke;
     width: 200px;
     list-style-type: none;
     display: flex;
@@ -59,11 +64,14 @@ body {
     padding: 1rem;
     width: 100%;
     z-index: 999;
+    font-weight: bold;
 }
 
 .header-dropdown li:hover {
-    background-color: rgb(239, 107, 129);
-    z-index: 0;
+    background-color: hsl(127, 100%, 82%);
+    color: hsl(247, 11%, 15%);
+    z-index: 999;
+    cursor: pointer;
 }
 
 .dropdown-back {
@@ -93,6 +101,8 @@ body {
     width: 100vw;
     padding-top: 80px;
     display: flex;
+    background-color: hsl(247, 11%, 15%);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .left-side {
@@ -100,7 +110,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('./assets/profile_background.jpg');
+    /* background-image: url('./assets/profile_background.jpg'); */
     background-size: cover;
 }
 
@@ -112,8 +122,7 @@ body {
 }
 .right-side {
     width: 50%;
-    background-color: #333;
-    color: whitesmoke;
+    background-color: hsl(247, 11%, 15%);
     padding: 4rem;
     text-align: center;
 }
