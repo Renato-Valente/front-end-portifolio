@@ -7,7 +7,7 @@ import dog from '../assets/dog.jpg'
 import ticTac from '../assets/tic-tac.jpg'
 import toDoList from '../assets/todo-list.jpg'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const Carousel = () => {
 
@@ -20,41 +20,80 @@ const Carousel = () => {
         {src: toDoList, link: 'https://react-todo-list-uyvh.onrender.com/'}
     ])
 
-    const [offSet, setOffSet] = useState(0);
+    const imageSizeInitialValue = window.matchMedia('(max-width: 600px)').matches ? 300 : 400;
+    const [imageSize, setImageSize] = useState(imageSizeInitialValue);
+    const [screen, setScreen] = useState(true);
 
-    const handleButtonRight = () => {
-        //setOffSet(offSet + 1);
-        setOffSet((prev) => {
-            return prev + 1 >= images.length ? 0 : prev + 1;
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            setImageSize((prev) => {
+                const match = window.matchMedia('(max-width: 600px)').matches;
+                console.log('teste:', match)
+                return match ? 300 : 400;
+            });
+        })
+    },[])
+
+    const ref = useRef();
+
+    const [scrollOffset, setScrollOffset] = useState(0);
+    const [scroll, setScroll] =useState(false);
+
+    const handleMove = (event) => {
+        if(!scroll) return;
+        ref.current.style.transitionDuration = '0ms'
+        setScrollOffset((prev) => {
+            return prev + event.movementX > - (imageSize * (images.length - 1)) 
+            && prev + event.movementX < imageSize ? 
+                prev + event.movementX : prev;
         })
     }
 
     const handleButtonLeft = () => {
-        setOffSet((prev) => {
-            return prev - 1 < 0 ? images.length - 1 : prev - 1;
+        ref.current.style.transitionDuration = '350ms';
+        setScrollOffset((prev) => {
+            const result = Math.floor((prev + imageSize) / imageSize) * imageSize;
+            return result < imageSize * 2 ? 
+            result : prev;
+        })   
+    }
+
+    const handleButtonRight = () => {
+        ref.current.style.transitionDuration = '350ms'
+        setScrollOffset((prev) => {
+            const result = Math.floor((prev - imageSize) / imageSize) * imageSize;
+            return result > - (imageSize * (images.length)) ? result : prev;
+
         })
+
     }
 
     return(
-        <div className="carousel-container">
-            <h2>My Projects</h2>
-            <div className="carousel">
-                <button onClick={handleButtonLeft} className="carousel-button button-left">&larr;</button> 
-                {
-                    images.map((item, index) => {
-                        return(
-                            <a key={index} href={item.link} target='blank'>
-                                <img className='carousel-image'
-                                style={{left: `${(index - offSet) * 400}px`}}
-                                src={item.src} />
-                            </a>
-                        )
-                    })
-                }
-                <button onClick={handleButtonRight} className="carousel-button button-right">&rarr;</button>
-            </div>
-            
+
+        <>
+        <h2 className='carousel-title'>My Projects</h2>
+        <div className="overall-container">
+        <div ref={ref} onMouseMove={handleMove} 
+            onMouseDown={() => setScroll(true)}
+            onMouseUp={() => setScroll(false)}
+            onMouseLeave={() => setScroll(false)}
+        className="carousel-container">
+            <button onClick={handleButtonLeft} className='carousel-button left-button'>&larr;</button>
+            {
+                images.map((item, index) => {
+                    return(
+                            <img key={index} onDoubleClick={() => window.open(item.link)} style={{
+                            left: `${index * imageSize + scrollOffset}px`
+                        }} draggable='false' src={item.src} className='carousel-image' />
+                        
+                    )
+                })
+            }
+            <button onClick={handleButtonRight} className='carousel-button right-button'>&rarr;</button>
         </div>
+        </div>
+        </>
+        
     )
 }
 

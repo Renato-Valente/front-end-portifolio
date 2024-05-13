@@ -1,67 +1,64 @@
-.carousel-container {
-    
-    width: 100vw;
-    min-height: 600px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.overall-container {
     background-color: hsl(247, 11%, 15%);
-    /* background-image: url('../assets/computer.jpg'); */
-    overflow-x: hidden;
+    width: 100vw;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    /* flex-direction: column;
+    align-items: center; */
 }
 
-.carousel-container h2 {
+.carousel-title {
     font-size: 3rem;
-    padding: 1rem;
+    margin-bottom: 4rem;
     color: rgba(255, 255, 255, 0.6);
+    width: 100vw;
+    text-align: center;
 }
-
-.carousel {
+.carousel-container {
+    background-color: hsl(247, 11%, 15%);
+    width: 100vh;
     height: 400px;
-    width: 400px;
-    /* border: 5px solid hsl(252, 17%, 6%); */
-    /* border-radius: 32px; */
-    /* overflow: hidden; */
     position: relative;
+    overflow: hidden;
+
+    @media (max-width: 600px) {
+        height: 300px;
+    }
 }
 
 .carousel-image {
-    width: 100%;
+    width: 400px;
     height: 100%;
     position: absolute;
-    top: 0;
-    transition-duration: 350ms;
+    transition-duration: inherit;
     opacity: 0.7;
+    cursor: pointer;
+
+    @media (max-width: 600px) {
+        width: 300px;
+    }
 }
 
 .carousel-image:hover {
-    /* width: 120%;
-    height: 120%; */
     opacity: 1;
-    z-index: 1;
 }
 
 .carousel-button {
-    position: absolute;
-    top: 50%;
-    padding: 5px 15px;
-    background-color: rgba(255,255,255, 0.7);
-    border: none;
+    padding: 0.5rem 2rem;
     z-index: 999;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
+
+    @media (max-width: 600px) {
+        display: none;
+    }
 }
 
-.carousel-button:hover {
-    background-color: hsl(127, 100%, 82%);
-}
-
-.button-left {
-    left: 0;
-}
-
-.button-right {
-    right: 0;
+.right-button {
+    right: 0%;
 }
