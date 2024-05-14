@@ -39,10 +39,14 @@ const Carousel = () => {
     const [scrollOffset, setScrollOffset] = useState(0);
     const [scroll, setScroll] =useState(false);
 
+    const [oldOffset, setOldOffset] = useState(0);
+    const [xStart, setXStart] = useState(0);
+
     const handleMove = (event) => {
-        if(!scroll) return;
+        //if(!scroll) return;
         ref.current.style.transitionDuration = '0ms'
         setScrollOffset((prev) => {
+            const pageX = event.changedTouches[0].pageX;
             return prev + event.movementX > - (imageSize * (images.length - 1)) 
             && prev + event.movementX < imageSize ? 
                 prev + event.movementX : prev;
@@ -53,8 +57,11 @@ const Carousel = () => {
         ref.current.style.transitionDuration = '350ms';
         setScrollOffset((prev) => {
             const result = Math.floor((prev + imageSize) / imageSize) * imageSize;
-            return result < imageSize * 2 ? 
+            const finalResult = result < imageSize * 2 ? 
             result : prev;
+
+            setOldOffset(finalResult);
+            return finalResult
         })   
     }
 
@@ -62,10 +69,28 @@ const Carousel = () => {
         ref.current.style.transitionDuration = '350ms'
         setScrollOffset((prev) => {
             const result = Math.floor((prev - imageSize) / imageSize) * imageSize;
-            return result > - (imageSize * (images.length)) ? result : prev;
-
+            const finalResult = result > - (imageSize * (images.length)) ? result : prev;
+            setOldOffset(finalResult);
+            return finalResult;
         })
 
+    }
+
+    const touchStart = (event) => {
+        ref.current.style.transitionDuration = '0ms'
+        const pageX = event.touches[0].pageX;
+        console.log(pageX);
+        setXStart(pageX);
+
+    }
+
+    const touchEnd = (event) => {
+        setOldOffset(scrollOffset);
+    }
+
+    const touchMove = (event) => {
+        const pageX = event.touches[0].pageX;
+        setScrollOffset(oldOffset + (pageX - xStart));
     }
 
     return(
@@ -73,18 +98,24 @@ const Carousel = () => {
         <>
         <h2 className='carousel-title'>My Projects</h2>
         <div className="overall-container">
-        <div ref={ref} onMouseMove={handleMove} 
-            onMouseDown={() => setScroll(true)}
+
+        <div  ref={ref} 
+            onTouchStart={touchStart}
+            onTouchEnd={touchEnd}
+            onTouchMove={touchMove}
+            /* onMouseDown={() => setScroll(true)}
             onMouseUp={() => setScroll(false)}
-            onMouseLeave={() => setScroll(false)}
+            onMouseLeave={() => setScroll(false)} */
         className="carousel-container">
             <button onClick={handleButtonLeft} className='carousel-button left-button'>&larr;</button>
             {
                 images.map((item, index) => {
                     return(
-                            <img key={index} onDoubleClick={() => window.open(item.link)} style={{
-                            left: `${index * imageSize + scrollOffset}px`
-                        }} draggable='false' src={item.src} className='carousel-image' />
+                            <a href={item.link} target='blank' className='carousel-image'>
+                                <img key={index} onDoubleClick={() => window.open(item.link)} style={{
+                                left: `${index * imageSize + scrollOffset}px`
+                            }} draggable='false' src={item.src}  />
+                            </a>
                         
                     )
                 })

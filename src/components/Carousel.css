@@ -28,6 +28,10 @@
 }
 
 .carousel-image {
+    transition-duration: inherit;
+}
+
+.carousel-image img {
     width: 400px;
     height: 100%;
     position: absolute;
@@ -40,7 +44,7 @@
     }
 }
 
-.carousel-image:hover {
+.carousel-image img:hover {
     opacity: 1;
 }
 
