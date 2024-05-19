@@ -74,6 +74,7 @@ const Carousel = () => {
 
     const touchStart = (event) => {
         isScrolling.current = false;
+        setOldOffset(momentumOffSet.current);
         ref.current.style.transitionDuration = '0ms'
         const pageX = event.touches[0].pageX;
         //console.log(pageX);
@@ -85,9 +86,6 @@ const Carousel = () => {
         movDirection.current = movement.current < 0 ? -1 : 1;
         movement.current = Math.abs(movement.current);
         if(movement.current > 0) {isScrolling.current = true;}
-        /* console.log(movement.current);
-        console.log('touchend-Offset: ', scrollOffset)
-        console.log('touchend-isScrolling: ', isScrolling.current); */
         setOldOffset(momentumOffSet.current);
         momentumScroll();
     }

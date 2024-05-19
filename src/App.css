@@ -12,6 +12,7 @@ body {
 
 .header-container {
     width: 100vw;
+    z-index: 999;
     max-height: 80px;
     background-color: hsl(127, 100%, 82%);
     position: fixed;
