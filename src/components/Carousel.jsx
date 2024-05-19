@@ -42,16 +42,12 @@ const Carousel = () => {
     const [oldOffset, setOldOffset] = useState(0);
     const [xStart, setXStart] = useState(0);
 
-    const handleMove = (event) => {
-        //if(!scroll) return;
-        ref.current.style.transitionDuration = '0ms'
-        setScrollOffset((prev) => {
-            const pageX = event.changedTouches[0].pageX;
-            return prev + event.movementX > - (imageSize * (images.length - 1)) 
-            && prev + event.movementX < imageSize ? 
-                prev + event.movementX : prev;
-        })
-    }
+    const movement = useRef(0);
+    const lastPageX = useRef(0);
+    const isScrolling = useRef(false);
+    const movDirection = useRef(1);
+    const momentumOffSet = useRef(0);
+    const lastTime = useRef(0);
 
     const handleButtonLeft = () => {
         ref.current.style.transitionDuration = '350ms';
@@ -77,20 +73,80 @@ const Carousel = () => {
     }
 
     const touchStart = (event) => {
+        isScrolling.current = false;
         ref.current.style.transitionDuration = '0ms'
         const pageX = event.touches[0].pageX;
-        console.log(pageX);
+        //console.log(pageX);
         setXStart(pageX);
 
     }
 
     const touchEnd = (event) => {
-        setOldOffset(scrollOffset);
+        movDirection.current = movement.current < 0 ? -1 : 1;
+        movement.current = Math.abs(movement.current);
+        if(movement.current > 0) {isScrolling.current = true;}
+        /* console.log(movement.current);
+        console.log('touchend-Offset: ', scrollOffset)
+        console.log('touchend-isScrolling: ', isScrolling.current); */
+        setOldOffset(momentumOffSet.current);
+        momentumScroll();
     }
 
     const touchMove = (event) => {
         const pageX = event.touches[0].pageX;
-        setScrollOffset(oldOffset + (pageX - xStart));
+        movement.current = pageX - lastPageX.current;
+        lastPageX.current = pageX;
+
+        const result = oldOffset + (pageX - xStart);
+
+        /* console.log('oldoffset: ', oldOffset);
+        console.log('pageX: ', pageX);
+        console.log('Xtart: ', xStart); */
+        setScrollOffset((prev) => {
+            if(result > 0) {
+                momentumOffSet.current = 0;
+                return 0;
+            }
+
+            if(result < (images.length - 1) * imageSize * -1) {
+                momentumOffSet.current = (images.length - 1) * imageSize * -1;
+                return (images.length - 1) * imageSize * -1;
+            }
+
+            momentumOffSet.current = result;
+            return result;
+        });
+    }
+
+    const momentumScroll = () => {
+
+        if(movement.current < 1) {
+            isScrolling.current = false;
+            setOldOffset(momentumOffSet.current);
+            return;
+        }
+        const deltaTime = Date.now() - lastTime.current;
+        movement.current = movement.current - 0.2;// * deltaTime / 1000;
+        setScrollOffset((prev) => {
+            const result = prev + (movement.current * movDirection.current);
+
+            if(result > 0) {
+                momentumOffSet.current = 0;
+                return 0;
+            }
+
+            if(result < (images.length - 1) * imageSize * -1) {
+                momentumOffSet.current = (images.length - 1) * imageSize * -1;
+                return (images.length - 1) * imageSize * -1;
+            }
+
+            momentumOffSet.current = result;
+            return result;
+        })
+        
+        lastTime.current = Date.now();
+
+        requestAnimationFrame(momentumScroll);
     }
 
     return(
@@ -103,15 +159,12 @@ const Carousel = () => {
             onTouchStart={touchStart}
             onTouchEnd={touchEnd}
             onTouchMove={touchMove}
-            /* onMouseDown={() => setScroll(true)}
-            onMouseUp={() => setScroll(false)}
-            onMouseLeave={() => setScroll(false)} */
         className="carousel-container">
             <button onClick={handleButtonLeft} className='carousel-button left-button'>&larr;</button>
             {
                 images.map((item, index) => {
                     return(
-                            <a href={item.link} target='blank' className='carousel-image'>
+                            <a key={index} href={item.link} target='blank' className='carousel-image'>
                                 <img key={index} onDoubleClick={() => window.open(item.link)} style={{
                                 left: `${index * imageSize + scrollOffset}px`
                             }} draggable='false' src={item.src}  />
