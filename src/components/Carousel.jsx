@@ -12,12 +12,12 @@ import { useEffect, useRef, useState } from 'react'
 const Carousel = () => {
 
     const [images, setImages] = useState([
-        {src: decker, link: 'https://google.com'},
-        {src: fall, link: 'https://google.com'},
-        {src: mountains, link: 'https://google.com'},
-        {src: dog, link: 'https://youtube.com'},
-        {src: ticTac, link: 'https://react-tic-tac-toe-a6a1.onrender.com/'},
-        {src: toDoList, link: 'https://react-todo-list-uyvh.onrender.com/'}
+        {src: decker, link: 'https://google.com', title: 'Teste'},
+        {src: fall, link: 'https://google.com', title: 'Teste'},
+        {src: mountains, link: 'https://google.com', title: 'Teste'},
+        {src: dog, link: 'https://youtube.com', title: 'Teste'},
+        {src: ticTac, link: 'https://react-tic-tac-toe-a6a1.onrender.com/', title: 'Tic Tac Toe Game'},
+        {src: toDoList, link: 'https://react-todo-list-uyvh.onrender.com/', title: 'TODO List'}
     ])
 
     const imageSizeInitialValue = window.matchMedia('(max-width: 600px)').matches ? 300 : 400;
@@ -53,7 +53,7 @@ const Carousel = () => {
         ref.current.style.transitionDuration = '350ms';
         setScrollOffset((prev) => {
             const result = Math.floor((prev + imageSize) / imageSize) * imageSize;
-            const finalResult = result < imageSize * 2 ? 
+            const finalResult = result < imageSize * 3 ? 
             result : prev;
 
             setOldOffset(finalResult);
@@ -150,10 +150,10 @@ const Carousel = () => {
     return(
 
         <>
-        <h2 className='carousel-title'>My Projects</h2>
+        <h2 id='carousel' style={{scrollBehavior: 'smooth'}} className='carousel-title'>My Projects</h2>
         <div className="overall-container">
 
-        <div  ref={ref} 
+        <div ref={ref} 
             onTouchStart={touchStart}
             onTouchEnd={touchEnd}
             onTouchMove={touchMove}
@@ -162,11 +162,19 @@ const Carousel = () => {
             {
                 images.map((item, index) => {
                     return(
-                            <a key={index} href={item.link} target='blank' className='carousel-image'>
-                                <img key={index} onDoubleClick={() => window.open(item.link)} style={{
+                            <div style={{
                                 left: `${index * imageSize + scrollOffset}px`
-                            }} draggable='false' src={item.src}  />
-                            </a>
+                            }} key={index} className="carousel-image">
+                                <div className="card-title">
+                                    <h3>{item.title}</h3>
+                                </div>
+                                <img onDoubleClick={() => window.open(item.link)} 
+                                 draggable='false' src={item.src}  />
+                                 <button onClick={() => {
+                                    console.log(`go to ${item.link}`);
+                                    window.open(item.link, '_blank')
+                                 }}>See More</button>
+                            </div>
                         
                     )
                 })

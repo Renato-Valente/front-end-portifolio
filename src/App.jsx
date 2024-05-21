@@ -16,16 +16,18 @@ const Header = () => {
 
 
   return(
-    <div className="header-container">
+    <>
+      <div id="home"></div>
+      <div className="header-container">
       <div className="header-image">
         <img src={man}  height="50px" width="50px"/>
       </div>
       <div className="header-links">
         <ul>
-          <li>Home</li>
-          <li>About me</li>
-          <li>Projects</li>
-          <li>My Links</li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#carousel">Projects</a></li>
+          <li><a href="#">My Links</a></li>
         </ul>
       </div>
       <div onClick={() => setDropdown(true)} className="header-icon">
@@ -33,16 +35,17 @@ const Header = () => {
       </div>
 
       <div style={{display: dropdown ? 'block' : 'none'}} className="header-dropdown">
-        <ul>
-            <li>Home</li>
-            <li>About me</li>
-            <li>Projects</li>
-            <li>My Links</li>
+        <ul onClick={() => {setDropdown(false)}}>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#carousel">Projects</a></li>
+            <li><a href="#">My Links</a></li>
         </ul>
       </div>
 
       <div onClick={() => setDropdown(false)} style={{display: dropdown ? 'block' : 'none'}} className="dropdown-back"></div>
     </div>
+    </>
   )
 
 }
@@ -57,7 +60,7 @@ const AboutMe = () => {
         <img src={man} height={'50px'} width={'50px'} alt="profile image" />
       </div>
       <div className="right-side">
-        <h2>About Me</h2>
+        <h2 id='about'>About Me</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate atque quas vitae quia fuga animi repudiandae, aspernatur voluptates perspiciatis blanditiis, commodi velit doloribus sapiente quod doloremque unde tempora veritatis inventore.
         Praesentium numquam quam aperiam eius saepe tempora. Cupiditate, illo doloremque! Adipisci eius consequuntur nemo eaque vero officia molestiae officiis pariatur ea cum. Numquam quo minus magni cum placeat quas voluptatem.
         Dolore animi, odio consequatur laboriosam numquam reprehenderit itaque. Commodi perferendis placeat ea ducimus maiores hic mollitia amet sit, repellendus saepe voluptate nisi vitae praesentium unde sequi laborum porro reiciendis totam.</p>
