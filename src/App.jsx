@@ -61,9 +61,7 @@ const AboutMe = () => {
       </div>
       <div className="right-side">
         <h2 id='about'>About Me</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate atque quas vitae quia fuga animi repudiandae, aspernatur voluptates perspiciatis blanditiis, commodi velit doloribus sapiente quod doloremque unde tempora veritatis inventore.
-        Praesentium numquam quam aperiam eius saepe tempora. Cupiditate, illo doloremque! Adipisci eius consequuntur nemo eaque vero officia molestiae officiis pariatur ea cum. Numquam quo minus magni cum placeat quas voluptatem.
-        Dolore animi, odio consequatur laboriosam numquam reprehenderit itaque. Commodi perferendis placeat ea ducimus maiores hic mollitia amet sit, repellendus saepe voluptate nisi vitae praesentium unde sequi laborum porro reiciendis totam.</p>
+        <p>Hello, everyone! I'm Renato Valente, a front-end developer passionate about creating web applications that are as intuitive and user-friendly as possible. I specialize in HTML, CSS, JavaScript, and React, although I have experience with other languages and technologies as well. I have participated in several web projects, which you can explore below to learn more about my professional experience.</p>
       </div>
     </div>
 
