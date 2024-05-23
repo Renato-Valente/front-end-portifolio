@@ -12,7 +12,7 @@ const Links = () => {
                 <li><a href="https://github.com/Renato-Valente/" target='blank'><img src={githubIcon} alt="" /></a></li>
                 <li><a href="#home"><img src={homeIcon} alt="" /></a></li>
             </ul>
-            <button onClick={() => {window.open('/src/assets/Renato_Valente_CV_final_en.pdf', '_blank')}}
+            <button onClick={() => {window.open('/Renato_Valente_CV_final_en.pdf', '_blank')}}
             >Download my CV</button>
         </div>
     )
