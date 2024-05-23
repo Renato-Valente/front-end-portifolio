@@ -6,18 +6,16 @@ import mountains from '../assets/mountains.jpg'
 import dog from '../assets/dog.jpg'
 import ticTac from '../assets/tic-tac.jpg'
 import toDoList from '../assets/todo-list.jpg'
+import newsletter from '../assets/newsletter.png'
 
 import { useEffect, useRef, useState } from 'react'
 
 const Carousel = () => {
 
     const [images, setImages] = useState([
-        {src: decker, link: 'https://google.com', title: 'Teste'},
-        {src: fall, link: 'https://google.com', title: 'Teste'},
-        {src: mountains, link: 'https://google.com', title: 'Teste'},
-        {src: dog, link: 'https://youtube.com', title: 'Teste'},
-        {src: ticTac, link: 'https://react-tic-tac-toe-a6a1.onrender.com/', title: 'Tic Tac Toe Game'},
-        {src: toDoList, link: 'https://react-todo-list-uyvh.onrender.com/', title: 'TODO List'}
+        {src: ticTac, link: 'https://react-tic-tac-toe-a6a1.onrender.com/', title: 'Tic Tac Toe Game', repo: 'https://github.com/Renato-Valente/react-tic-tac-toe'},
+        {src: toDoList, link: 'https://react-todo-list-uyvh.onrender.com/', title: 'TODO List', repo: 'https://github.com/Renato-Valente/react-todo-list'},
+        {src: newsletter, link: 'https://front-end-mentor-newsletter-sign-in.onrender.com/', title: 'Newsletter Sign in', repo: 'https://github.com/Renato-Valente/newsletter-sign-in'}
     ])
 
     const imageSizeInitialValue = window.matchMedia('(max-width: 600px)').matches ? 300 : 400;
@@ -170,10 +168,15 @@ const Carousel = () => {
                                 </div>
                                 <img onDoubleClick={() => window.open(item.link)} 
                                  draggable='false' src={item.src}  />
-                                 <button onClick={() => {
-                                    console.log(`go to ${item.link}`);
-                                    window.open(item.link, '_blank')
-                                 }}>See More</button>
+                                 <div className="card-buttons">
+                                    <button onClick={() => {
+                                        console.log(`go to ${item.link}`);
+                                        window.open(item.link, '_blank')
+                                    }}>See More</button>
+                                    <button onClick={() => {
+                                        window.open(item.repo, '_blank');
+                                    }}>See Repository</button>
+                                 </div>
                             </div>
                         
                     )
