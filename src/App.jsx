@@ -1,13 +1,12 @@
-/* import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg' */
 import './App.css'
 import spider from './assets/spider.jpg'
 import links from './assets/links.svg'
 import dog from './assets/dog.jpg'
 import man from './assets/man.jpg'
+import profile from './assets/profile_BW.jpeg'
 import { useState } from 'react'
 import Carousel from './components/Carousel'
+import Links from './components/Links'
 
 
 const Header = () => {
@@ -20,14 +19,14 @@ const Header = () => {
       <div id="home"></div>
       <div className="header-container">
       <div className="header-image">
-        <img src={man}  height="50px" width="50px"/>
+        <img src={profile}  height="50px" width="50px"/>
       </div>
       <div className="header-links">
         <ul>
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About Me</a></li>
           <li><a href="#carousel">Projects</a></li>
-          <li><a href="#">My Links</a></li>
+          <li><a href="#links">My Links</a></li>
         </ul>
       </div>
       <div onClick={() => setDropdown(true)} className="header-icon">
@@ -39,7 +38,7 @@ const Header = () => {
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About Me</a></li>
             <li><a href="#carousel">Projects</a></li>
-            <li><a href="#">My Links</a></li>
+            <li><a href="#links">My Links</a></li>
         </ul>
       </div>
 
@@ -57,11 +56,11 @@ const AboutMe = () => {
     
     <div className="about-container">
       <div className="left-side">
-        <img src={man} height={'50px'} width={'50px'} alt="profile image" />
+        <img src={profile} height={'50px'} width={'50px'} alt="profile image" />
       </div>
       <div className="right-side">
         <h2 id='about'>About Me</h2>
-        <p>Hello, everyone! I'm Renato Valente, a front-end developer passionate about creating web applications that are as intuitive and user-friendly as possible. I specialize in HTML, CSS, JavaScript, and React, although I have experience with other languages and technologies as well. I have participated in several web projects, which you can explore below to learn more about my professional experience.</p>
+        <p>Hello, everyone! I'm Renato Valente, a front-end developer passionate about creating web applications that are as intuitive and user-friendly as possible. I specialize in HTML, CSS, JavaScript, and React, although I have experience with other languages and technologies as well. I have participated in a few web projects, which you can explore below to learn more about my professional experience.</p>
       </div>
     </div>
 
@@ -86,6 +85,7 @@ function App() {
       <Header />
       <AboutMe />
       <Carousel />
+      <Links />
     </>
   )
 
