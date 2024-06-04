@@ -1,21 +1,17 @@
 import './Carousel.css'
 
-import decker from '../assets/double-decker.jpg'
-import fall from '../assets/fall.jpg'
-import mountains from '../assets/mountains.jpg'
-import dog from '../assets/dog.jpg'
 import ticTac from '../assets/tic-tac.jpg'
 import toDoList from '../assets/todo-list.jpg'
-import newsletter from '../assets/newsletter.png'
+import calculator from '../assets/calculator.png'
 
 import { useEffect, useRef, useState } from 'react'
 
 const Carousel = () => {
 
     const [images, setImages] = useState([
+        {src: calculator, link: 'https://react-calculator-gheb.onrender.com/', title: 'Calculator', repo: 'https://github.com/Renato-Valente/react-calculator.git'},
         {src: ticTac, link: 'https://react-tic-tac-toe-a6a1.onrender.com/', title: 'Tic Tac Toe Game', repo: 'https://github.com/Renato-Valente/react-tic-tac-toe'},
-        {src: toDoList, link: 'https://react-todo-list-uyvh.onrender.com/', title: 'TODO List', repo: 'https://github.com/Renato-Valente/react-todo-list'},
-        {src: newsletter, link: 'https://front-end-mentor-newsletter-sign-in.onrender.com/', title: 'Newsletter Sign in', repo: 'https://github.com/Renato-Valente/newsletter-sign-in'}
+        {src: toDoList, link: 'https://react-todo-list-uyvh.onrender.com/', title: 'TODO List', repo: 'https://github.com/Renato-Valente/react-todo-list'}
     ])
 
     const imageSizeInitialValue = window.matchMedia('(max-width: 600px)').matches ? 300 : 400;
